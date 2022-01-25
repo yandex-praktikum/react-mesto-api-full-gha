@@ -35,5 +35,7 @@ jobs:
       run: cd backend&&pnpm i -f
     - name: Run server
       run: cd backend&&pnpm run start &
-    - name: Run test
-      run: bash ./web-autotest-public/run15.sh
+    - name: Run test endpoint
+      uses: matt-ball/newman-action@master
+      with:
+        collection: https://www.getpostman.com/collections/0b931c863c84933f1397
