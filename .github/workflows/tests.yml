@@ -35,8 +35,8 @@ jobs:
       run: cd backend&&pnpm i -f
     - name: Run server
       run: cd backend&&pnpm run start &
-    - name: Run test code
-      run: bash ./web-autotest-public/run15.sh
+    - name: Run test connection
+      run: bash ./web-autotest-public/run_endpoint.sh
     - name: Run test endpoint
       uses: matt-ball/newman-action@master
       with:
