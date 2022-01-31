@@ -38,4 +38,4 @@ jobs:
     - name: Wait for server to start
       run: wait-port -t 30000 localhost:3000
     - name: Run test endpoint
-      run: bash ./web-autotest-public/run15.sh
+      run: bash ./web-autotest-public/proj15/bin/test-endpoints.sh
