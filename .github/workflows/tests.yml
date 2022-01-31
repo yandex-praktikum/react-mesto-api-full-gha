@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
         mongodb-version: ['4.4']
     steps:
     - name: Set up GitHub Actions
@@ -30,14 +30,14 @@ jobs:
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
     - name: Installing pnpm
-      run: cd backend&&npm install -g pnpm
+      run: npm install -g pnpm
     - name: Installing Dependencies
       run: cd backend&&pnpm i -f
     - name: Run server
       run: cd backend&&pnpm run start &
-    - name: Run test connection
-      run: bash ./web-autotest-public/run_endpoint.sh
+    - name: Installing wait-port
+      run: npm install -g wait-port
+    - name: Wait for server to start
+      run: wait-port -t 30000 localhost:3000
     - name: Run test endpoint
-      uses: matt-ball/newman-action@master
-      with:
-        collection: https://www.getpostman.com/collections/0b931c863c84933f1397
+      run: bash ./web-autotest-public/run15.sh
