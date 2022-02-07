@@ -25,6 +25,8 @@ jobs:
       if: ${{github.event.repository.private}}
     - name: Get testing lib
       run: set -eu && git clone https://github.com/Yandex-Practicum/web-autotest-public.git
+    - name: Copy Makefile
+      run: cp ./web-autotest-public/Makefile ./Makefile
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@1.6.0
       with:
@@ -37,5 +39,5 @@ jobs:
       run: npm install -g wait-port
     - name: Wait for server to start
       run: wait-port -t 30000 localhost:3000
-    - name: Run test endpoint
-      run: bash ./web-autotest-public/proj15/bin/test-endpoints.sh
+    - name: Run test endpoints
+      run: make proj15-test-endpoints
