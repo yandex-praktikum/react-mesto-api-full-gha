@@ -59,7 +59,7 @@ jobs:
       run: wait-port -t 30000 localhost:3000
     - name: Run test endpoints
       run: make proj15-test-endpoints
-  test_endpoints_2:
+  test_server:
     runs-on: ubuntu-latest
     steps:
     - name: Set up GitHub Actions
@@ -87,5 +87,5 @@ jobs:
       run: npm install -g wait-port
     - name: Wait for server to start
       run: wait-port -t 30000 localhost:3000
-    - name: Run test endpoints 2
-      run: make proj15-test-endpoints-2
+    - name: Run test server
+      run: make proj15-test-server
