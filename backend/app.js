@@ -6,6 +6,7 @@ const cardRouter = require('./routes/cards');
 const { loginUser, createUser } = require('./controllers/users');
 const { validateLogin, validateCreateUser } = require('./middlewares/validation');
 const auth = require('./middlewares/auth');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/not-found-err');
 const { errorHandler } = require('./errors/centralized-err-handler');
 
@@ -14,6 +15,8 @@ const app = express();
 mongoose.connect('mongodb://127.0.0.1/mestodb');
 
 app.use(express.json());
+
+app.use(requestLogger);
 
 app.post('/signin', validateLogin, loginUser);
 app.post('/signup', validateCreateUser, createUser);
@@ -24,6 +27,8 @@ app.use('/cards', auth, cardRouter);
 app.all('/*', (req, res, next) => {
   next(new NotFoundError('Запрашиваемая страница не существует'));
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 
